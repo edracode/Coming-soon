@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Under Development</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-color: #00f5ff;
+      --secondary-color: #7cffcb;
+      --bg-dark: #0f2027;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, var(--bg-dark), #000);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Background particles */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
+        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px);
+      background-size: 550px 550px, 350px 350px;
+      opacity: 0.2;
+      z-index: -1;
+    }
+
+    .container {
+      text-align: center;
+      padding: 50px 40px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: var(--glass-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      box-shadow: 0 0 50px rgba(0, 245, 255, 0.15);
+      animation: fadeIn 1.2s ease-out;
+      max-width: 800px;
+      width: 90%;
+      z-index: 10;
+    }
+
+    h1 {
+      font-size: 3rem;
+      letter-spacing: 6px;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    /* Countdown Styles */
+    .countdown {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    .time-box {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 15px;
+      border-radius: 12px;
+      min-width: 90px;
+      border: 1px solid rgba(0, 245, 255, 0.3);
+      box-shadow: 0 0 15px rgba(0, 245, 255, 0.1);
+    }
+
+    .time-box span {
+      font-size: 2rem;
+      display: block;
+      color: var(--primary-color);
+      font-weight: 700;
+    }
+
+    .time-box small {
+      font-size: 0.7rem;
+      opacity: 0.8;
+      letter-spacing: 2px;
+      margin-top: 5px;
+      display: block;
+    }
+
+    /* --- BAGIAN PENGGANTI FORMULIR (STATUS INFO) --- */
+    .info-status {
+      background: rgba(0, 245, 255, 0.05);
+      border: 1px dashed rgba(0, 245, 255, 0.3);
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      display: inline-block;
+      max-width: 600px;
+    }
+
+    .info-status i {
+      font-size: 1.5rem;
+      color: var(--secondary-color);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .info-status p {
+      font-size: 1rem;
+      color: #e0e0e0;
+      line-height: 1.6;
+      margin: 0;
+    }
+    /* --------------------------------------------- */
+
+    /* Social Icons */
+    .social-icons {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    .social-icons a {
+      color: #fff;
+      font-size: 1.5rem;
+      transition: 0.3s;
+      opacity: 0.6;
+    }
+
+    .social-icons a:hover {
+      color: var(--primary-color);
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.75rem;
+      opacity: 0.5;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 15px;
+    }
+
+    /* Animations & Glow */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .glow {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(0, 245, 255, 0.2), transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .glow.one { top: -100px; left: -100px; animation: float 10s infinite alternate; }
+    .glow.two { bottom: -100px; right: -100px; animation: float 12s infinite alternate-reverse; }
+
+    @keyframes float {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(20px, 40px); }
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; letter-spacing: 2px; }
+      .countdown { gap: 10px; }
+      .time-box { min-width: 70px; padding: 10px; }
+      .time-box span { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+
+  <div class="container">
+    <h1>COMING SOON</h1>
+    
+    <div class="countdown">
+      <div class="time-box">
+        <span id="days">00</span>
+        <small>HARI</small>
+      </div>
+      <div class="time-box">
+        <span id="hours">00</span>
+        <small>JAM</small>
+      </div>
+      <div class="time-box">
+        <span id="minutes">00</span>
+        <small>MENIT</small>
+      </div>
+      <div class="time-box">
+        <span id="seconds">00</span>
+        <small>DETIK</small>
+      </div>
+    </div>
+
+    <div class="info-status">
+      <i class="fas fa-tools"></i>
+      <p>Mohon maaf atas ketidaknyamanan ini.<br>Website yang Anda tuju sedang dalam tahap pengembangan dan peningkatan sistem atau sedang dalam tahap penmbuatan.</p>
+    </div>
+
+    <div class="social-icons">
+      <a href="https://www.instagram.com/edra.m.r?igsh=b2d0ejJkdTUxNGh1"><i class="fab fa-instagram"></i></a>
+      <a href="https://github.com/edracode"><i class="fab fa-github"></i></a>
+      <a href="https://www.tiktok.com/@dra_troubledheart?_r=1&_t=ZS-93PgOL5p0Sr"><i class="fab fa-tiktok"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="https://www.facebook.com/share/17hi9zPUNm/"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+
+    <footer>
+      &copy; 2026 Edra. All Rights Reserved.
+    </footer>
+  </div>
+
+  <script>
+    // Atur tanggal launching
+    const launchDate = new Date("2026-03-01T00:00:00").getTime();
+
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = launchDate - now;
+
+      if (distance < 0) {
+        clearInterval(timer);
+        document.querySelector(".countdown").innerHTML = "<h2 style='color:#7cffcb'>WE ARE LIVE!</h2>";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((distance / (1000 * 60)) % 60);
+      const seconds = Math.floor((distance / 1000) % 60);
+
+      document.getElementById("days").innerText = days.toString().padStart(2, '0');
+      document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+      document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+      document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+    }, 1000);
+  </script>
+
+</body>
+</html>

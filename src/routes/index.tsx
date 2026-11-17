@@ -10,6 +10,7 @@ import { TokenStatus } from "@/components/site/TokenStatus";
 import { Links } from "@/components/site/Links";
 import { Footer } from "@/components/site/Footer";
 import { MusicPlayer } from "@/components/site/MusicPlayer";
+import { ChaosAtmosphere } from "@/components/site/ChaosAtmosphere";
 
 export const publicSiteQuery = queryOptions({
   queryKey: ["public-site"],
@@ -58,6 +59,7 @@ function Home() {
       >
         Skip to content
       </a>
+      <ChaosAtmosphere />
       <Navbar buyUrl={settings.links.buy_url} />
       <main id="main">
         <Hero settings={settings} />

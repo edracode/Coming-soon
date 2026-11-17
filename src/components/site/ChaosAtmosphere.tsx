@@ -49,11 +49,55 @@ export function ChaosAtmosphere() {
         );
         const amount = Math.min(1, Math.max(0, window.scrollY / max));
         progress.current?.style.setProperty("--crzkd-progress", String(amount));
+        root.style.setProperty("--crzkd-scroll-lift", `${Math.min(48, window.scrollY * 0.045)}px`);
       });
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
+
+    // Ephemeral CSS-only sprites: no canvas, large libraries, or changes to site controls.
+    const activeSparks = new Map<HTMLSpanElement, number>();
+    const spawnSpark = (
+      x: number, y: number, glyph: string,
+      dx: string, dy: string, kind: "burst" | "trail",
+    ) => {
+      if (document.hidden || activeSparks.size >= 36) return;
+      const spark = document.createElement("span");
+      spark.className = `crzkd-spark crzkd-spark-${kind}`;
+      spark.setAttribute("aria-hidden", "true");
+      spark.textContent = glyph;
+      spark.style.left = `${x}px`;
+      spark.style.top = `${y}px`;
+      spark.style.setProperty("--crzkd-spark-dx", dx);
+      spark.style.setProperty("--crzkd-spark-dy", dy);
+      document.body.appendChild(spark);
+      const timer = window.setTimeout(() => {
+        spark.remove();
+        activeSparks.delete(spark);
+      }, kind === "burst" ? 850 : 580);
+      activeSparks.set(spark, timer);
+    };
+
+    let lastTrailAt = 0;
+    const onPress = (event: PointerEvent) => {
+      if (!event.isPrimary || event.button !== 0) return;
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (!target.closest("#top a, #top button, #gallery button, #links a, #token button, #mobile-menu a")) return;
+      for (let i = 0; i < 6; i++) {
+        const angle = (Math.PI * 2 * i) / 6;
+        const distance = 38 + (i % 3) * 14;
+        spawnSpark(
+          event.clientX, event.clientY,
+          i % 2 ? "✦" : "★",
+          `${Math.round(Math.cos(angle) * distance)}px`,
+          `${Math.round(Math.sin(angle) * distance)}px`,
+          "burst",
+        );
+      }
+    };
+    document.addEventListener("pointerdown", onPress, { passive: true });
 
     let pointerFrame = 0;
     let latestX = 0;
@@ -68,6 +112,10 @@ export function ChaosAtmosphere() {
         const y = ((latestY / window.innerHeight) - 0.5) * 26;
         root.style.setProperty("--crzkd-pointer-x", String(x) + "px");
         root.style.setProperty("--crzkd-pointer-y", String(y) + "px");
+        if (window.performance.now() - lastTrailAt >= 120) {
+          spawnSpark(latestX, latestY, "✦", "0px", "-28px", "trail");
+          lastTrailAt = window.performance.now();
+        }
       });
     };
     if (window.matchMedia("(pointer: fine)").matches) {
@@ -87,9 +135,13 @@ export function ChaosAtmosphere() {
       root.classList.remove("crzkd-motion");
       root.style.removeProperty("--crzkd-pointer-x");
       root.style.removeProperty("--crzkd-pointer-y");
+      root.style.removeProperty("--crzkd-scroll-lift");
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       window.removeEventListener("pointermove", onPointer);
+      document.removeEventListener("pointerdown", onPress);
+      activeSparks.forEach((timer, spark) => { window.clearTimeout(timer); spark.remove(); });
+      activeSparks.clear();
       if (frame) window.cancelAnimationFrame(frame);
       if (pointerFrame) window.cancelAnimationFrame(pointerFrame);
       audio?.removeEventListener("play", syncMusic);
@@ -116,6 +168,12 @@ export function ChaosAtmosphere() {
         <span className="crzkd-floating crzkd-floating-3">★</span>
         <span className="crzkd-floating crzkd-floating-4">✧</span>
         <span className="crzkd-floating crzkd-floating-5">✦</span>
+        <span className="crzkd-floating crzkd-floating-6">✳</span>
+        <span className="crzkd-floating crzkd-floating-7">✧</span>
+        <span className="crzkd-floating crzkd-floating-8">★</span>
+        <span className="crzkd-stamp crzkd-stamp-1">$CRZKD</span>
+        <span className="crzkd-stamp crzkd-stamp-2">TOO CRAZY TO GROW UP!</span>
+        <span className="crzkd-stamp crzkd-stamp-3">SMALL HUMAN. BIG CHAOS.</span>
       </div>
     </>
   );

@@ -23,6 +23,7 @@ export function MusicPlayer() {
         .order("sort_order", { ascending: true });
       if (error) throw error;
       const rows = (data ?? []) as Omit<Track, "url">[];
+      if (rows.length === 0) { setTracks([]); setStatus("Music coming soon — owner can upload songs from Admin."); return; }
       const { data: signed, error: signedError } = await supabase.storage.from("crzkd-music")
         .createSignedUrls(rows.map((row) => row.audio_path), 3600);
       if (signedError) throw signedError;

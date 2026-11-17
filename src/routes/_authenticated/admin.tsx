@@ -3,7 +3,7 @@ import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ExternalLink, KeyRound, Loader2, LogOut, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import logo from "@/assets/logo-crazychild-256.png";
+const logo = "https://crazychild-crzkd.lovable.app/assets/logo-crazychild-256-BYXIMe3U.png";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { isAdminQuery, settingsQuery } from "@/lib/admin-data";

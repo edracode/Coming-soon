@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Loader2, RotateCcw, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import heroIllustration from "@/assets/hero-crazychild.jpg";
+const heroIllustration = "https://crazychild-crzkd.lovable.app/apple-touch-icon.png";
 import { Button } from "@/components/ui/button";
 import { adminKeys, friendlyError, removeImage, signedUrls, uploadImage, type SiteSettingsRow } from "@/lib/admin-data";
 import { ImagePicker } from "./ImagePicker";

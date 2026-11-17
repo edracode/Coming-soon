@@ -83,7 +83,7 @@ export function MusicManager() {
 
   return (
     <div className="space-y-6">
-      <Panel title="Music & playlist" description="Upload official songs directly from your Android phone. Visitors can play them after upload.">
+      <Panel title="Music & playlist" description="Two original CraZyChilD songs are bundled with the website and play automatically when visitors press Play. Upload additional tracks here; they will be added to the public playlist.">
         <div className="grid gap-4 md:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="music-title">Song title</Label>

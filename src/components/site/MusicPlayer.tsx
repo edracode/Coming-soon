@@ -4,12 +4,18 @@ import { supabase } from "@/integrations/supabase/client";
 
 type Track = { id: string; title: string; audio_path: string; is_preview: boolean; url: string };
 const db = supabase as unknown as SupabaseClient;
+// Bundled official audio ships with the site. Supabase tracks extend this playlist
+// without requiring the owner to re-upload the two original songs.
+const BUNDLED_TRACKS: Track[] = [
+  { id: "official-crzkd-1", title: "Too Crazy To Grow Up", audio_path: "/audio/01-Too-Crazy-To-Grow-Up.mp3", is_preview: false, url: "/audio/01-Too-Crazy-To-Grow-Up.mp3" },
+  { id: "official-crzkd-2", title: "Small Human, Big Chaos", audio_path: "/audio/02-Small-Human-Big-Chaos-PREVIEW.mp3", is_preview: true, url: "/audio/02-Small-Human-Big-Chaos-PREVIEW.mp3" },
+];
 
 export function MusicPlayer() {
-  const [tracks, setTracks] = useState<Track[]>([]);
+  const [tracks, setTracks] = useState<Track[]>(BUNDLED_TRACKS);
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
-  const [status, setStatus] = useState("Loading official music…");
+  const [status, setStatus] = useState("Tap Play to listen.");
   const [playing, setPlaying] = useState(false);
   const [loop, setLoop] = useState(true);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -23,7 +29,7 @@ export function MusicPlayer() {
         .order("sort_order", { ascending: true });
       if (error) throw error;
       const rows = (data ?? []) as Omit<Track, "url">[];
-      if (rows.length === 0) { setTracks([]); setStatus("Music coming soon — owner can upload songs from Admin."); return; }
+      if (rows.length === 0) { setTracks(BUNDLED_TRACKS); setStatus("Tap Play to listen."); return; }
       const { data: signed, error: signedError } = await supabase.storage.from("crzkd-music")
         .createSignedUrls(rows.map((row) => row.audio_path), 3600);
       if (signedError) throw signedError;
@@ -31,10 +37,10 @@ export function MusicPlayer() {
         .map((item) => [item.path, item.signedUrl]));
       const valid = rows.map((row) => ({ ...row, url: urls.get(row.audio_path) ?? "" }))
         .filter((row) => row.url);
-      setTracks(valid);
-      setStatus(valid.length ? "Tap Play to listen." : "New music coming soon.");
+      setTracks([...BUNDLED_TRACKS, ...valid]);
+      setStatus("Tap Play to listen.");
     } catch {
-      setStatus("Music unavailable right now. Try Refresh.");
+      setTracks(BUNDLED_TRACKS); setStatus("Tap Play to listen.");
     }
   }
 
@@ -46,7 +52,8 @@ export function MusicPlayer() {
     const target = (next + tracks.length) % tracks.length;
     setIndex(target);
     const row = tracks[target]!;
-    if (audio.src !== row.url) audio.src = row.url;
+    const resolved = new URL(row.url, document.baseURI).href;
+    if (audio.src !== resolved) audio.src = resolved;
     try {
       await audio.play();
       setPlaying(true);

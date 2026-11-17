@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
-const logo = "https://crazychild-crzkd.lovable.app/favicon.png";
+const logo = "https://crazychild-crzkd.lovable.app/assets/logo-crazychild-256-BYXIMe3U.png";
 import type { PublicGalleryItem } from "@/lib/site";
 import { DoodleStar } from "./Doodles";
 

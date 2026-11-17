@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-const logo = "https://crazychild-crzkd.lovable.app/favicon.png";
+const logo = "https://crazychild-crzkd.lovable.app/assets/logo-crazychild-256-BYXIMe3U.png";
 
 export function AuthShell({ title, subtitle, children }: { title: string; subtitle?: string; children: ReactNode }) {
   return (

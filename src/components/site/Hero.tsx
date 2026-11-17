@@ -1,4 +1,4 @@
-const heroIllustration = "https://crazychild-crzkd.lovable.app/apple-touch-icon.png";
+const heroIllustration = "https://crazychild-crzkd.lovable.app/assets/hero-crazychild-B1yC05Gw.jpg";
 import { TOKEN, type PublicSettings } from "@/lib/site";
 import { BuyButton } from "./BuyButton";
 import { DoodleBurst, DoodleSquiggle, DoodleStar } from "./Doodles";

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import logo from "@/assets/logo-crazychild-256.png";
+const logo = "https://crazychild-crzkd.lovable.app/favicon.png";
 import { TOKEN } from "@/lib/site";
 
 export function Footer() {

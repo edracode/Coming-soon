@@ -6,6 +6,7 @@ import { Hero } from "@/components/site/Hero";
 import { Marquee } from "@/components/site/Marquee";
 import { About } from "@/components/site/About";
 import { Gallery } from "@/components/site/Gallery";
+import { Music } from "@/components/site/Music";
 import { TokenStatus } from "@/components/site/TokenStatus";
 import { Links } from "@/components/site/Links";
 import { Footer } from "@/components/site/Footer";
@@ -63,6 +64,7 @@ function Home() {
         <Marquee slogan={settings.slogan} />
         <About description={settings.description} />
         <Gallery items={gallery} />
+        <Music />
         <Marquee slogan={settings.slogan} reverse tone="pink" />
         <TokenStatus contract={settings.contract_address} buyUrl={settings.links.buy_url} />
         <Links links={settings.links} />

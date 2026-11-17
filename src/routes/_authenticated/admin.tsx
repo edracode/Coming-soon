@@ -3,7 +3,7 @@ import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ExternalLink, KeyRound, Loader2, LogOut, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import logo from "@/assets/logo-crazychild-256.png";
+const logo = "https://crazychild-crzkd.lovable.app/favicon.png";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { isAdminQuery, settingsQuery } from "@/lib/admin-data";
@@ -11,6 +11,7 @@ import { ContentForm } from "@/components/admin/ContentForm";
 import { LinksForm } from "@/components/admin/LinksForm";
 import { HeroManager } from "@/components/admin/HeroManager";
 import { GalleryManager } from "@/components/admin/GalleryManager";
+import { MusicManager } from "@/components/admin/MusicManager";
 import { AdminsManager } from "@/components/admin/AdminsManager";
 import { ErrorBlock, LoadingBlock } from "@/components/admin/Panel";
 
@@ -99,6 +100,7 @@ function AdminDashboard({ email }: { email: string }) {
       <Tabs defaultValue="gallery" className="mt-6">
         <TabsList className="flex h-auto w-full flex-wrap justify-start gap-1 bg-card p-1">
           <TabsTrigger value="gallery">Gallery</TabsTrigger>
+          <TabsTrigger value="music">Music</TabsTrigger>
           <TabsTrigger value="hero">Hero</TabsTrigger>
           <TabsTrigger value="content">Text & token</TabsTrigger>
           <TabsTrigger value="links">Links</TabsTrigger>
@@ -106,6 +108,9 @@ function AdminDashboard({ email }: { email: string }) {
         </TabsList>
         <TabsContent value="gallery" className="mt-6">
           <GalleryManager heroPath={s.hero_image_path} />
+        </TabsContent>
+        <TabsContent value="music" className="mt-6">
+          <MusicManager />
         </TabsContent>
         <TabsContent value="hero" className="mt-6">
           <HeroManager key={s.hero_image_path ?? "none"} settings={s} />

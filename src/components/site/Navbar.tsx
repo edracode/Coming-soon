@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import logo from "@/assets/logo-crazychild-256.png";
+const logo = "https://crazychild-crzkd.lovable.app/favicon.png";
 import { BuyButton } from "./BuyButton";
 
 const NAV = [
   { href: "#about", label: "About" },
   { href: "#gallery", label: "Gallery" },
+  { href: "#music", label: "Music" },
   { href: "#token", label: "Token" },
   { href: "#links", label: "Links" },
 ];
